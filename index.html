@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BottleneckBreakers - Capstone Project</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #00ff88;
+            --secondary-color: #1a1a1a;
+            --accent-color: #333;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border-color: rgba(0, 255, 136, 0.2);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 2rem 0;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .logo-text p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .university-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+        
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tech-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Project Section */
+        .project-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--primary-color);
+        }
+        
+        .project-overview {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+        
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Team Section */
+        .team-section {
+            margin-bottom: 4rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
+        }
+        
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), #ffffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .member-role {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .member-responsibilities {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .leader-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .footer-content {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .header-content {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Code styling */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(0, 255, 136, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--secondary-color);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00cc6a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">BB</div>
+                    <div class="logo-text">
+                        <h1>BottleneckBreakers</h1>
+                        <p>CS Capstone Project 2025</p>
+                    </div>
+                </div>
+                <div class="university-badge">Texas Tech University</div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h2 class="hero-title animate-fadeInUp">LLM-Powered Paper Summarization</h2>
+                <p class="hero-subtitle animate-fadeInUp">Revolutionizing academic research with intelligent document processing and automated summarization using Large Language Models</p>
+                
+                <div class="tech-stack animate-fadeInUp">
+                    <span class="tech-badge">Python 3.11+</span>
+                    <span class="tech-badge">LLM APIs</span>
+                    <span class="tech-badge">FastAPI</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">OCR</span>
+                    <span class="tech-badge">NLP</span>
+                </div>
+            </section>
+
+            <!-- Project Section -->
+            <section class="project-section">
+                <h3 class="section-title">Project Overview</h3>
+                
+                <div class="project-overview animate-fadeInUp">
+                    <p class="project-description">
+                        Our project tackles the time-consuming challenge of summarizing large collections of academic papers. By leveraging Large Language Models (LLMs), we've developed a sophisticated two-stage process that first generates individual summaries for each paper, then aggregates them into a cohesive, comprehensive document.
+                    </p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-title">🔍 Intelligent Parsing</div>
+                            <div class="feature-description">Advanced text extraction with support for multiple formats including PDF, DOCX, HTML, and more with OCR capabilities</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-title">⚡ Parallel Processing</div>
+                            <div class="feature-description">Multi-threaded chunk processing with linear scaling up to 4 workers for optimal performance</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-title">🛡️ Secure & Private</div>
+                            <div class="feature-description">Offline mode available with no data transmission, plus PII sanitization for online processing</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-title">🎯 Flexible Output</div>
+                            <div class="feature-description">Configurable summary lengths (short, medium, detailed) with multiple export formats</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-title">🖥️ Multi-Interface</div>
+                            <div class="feature-description">GUI, CLI, and web application interfaces for different user preferences and workflows</div>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-title">🔧 Cross-Platform</div>
+                            <div class="feature-description">Windows, macOS, and Linux support with Docker containerization for easy deployment</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team Section -->
+            <section class="team-section">
+                <h3 class="section-title">Meet the Team</h3>
+                
+                <div class="team-grid">
+                    <div class="team-card animate-fadeInUp">
+                        <div class="member-avatar">ST</div>
+                        <div class="member-name">
+                            Shahir Tahiri
+                            <span class="leader-badge">LEADER</span>
+                        </div>
+                        <div class="member-role">Backend Architecture</div>
+                        <div class="member-responsibilities">
+                            Leading the project while architecting the backend infrastructure and setting up local LLM integration. Responsible for core system design and ensuring seamless model deployment.
+                        </div>
+                    </div>
+                    
+                    <div class="team-card animate-fadeInUp">
+                        <div class="member-avatar">KS</div>
+                        <div class="member-name">Koda Scott</div>
+                        <div class="member-role">Frontend Developer</div>
+                        <div class="member-responsibilities">
+                            Designing and implementing the graphical user interface to provide an intuitive and user-friendly experience for document upload, processing, and result visualization.
+                        </div>
+                    </div>
+                    
+                    <div class="team-card animate-fadeInUp">
+                        <div class="member-avatar">AK</div>
+                        <div class="member-name">Aryan Sachin Kulkarni</div>
+                        <div class="member-role">Data Processing Engineer</div>
+                        <div class="member-responsibilities">
+                            Developing robust document parsing systems to convert various file formats into structured JSON data while preserving semantic meaning and document hierarchy.
+                        </div>
+                    </div>
+                    
+                    <div class="team-card animate-fadeInUp">
+                        <div class="member-avatar">KK</div>
+                        <div class="member-name">Kyle Kirchgessner</div>
+                        <div class="member-role">Requirements Engineer</div>
+                        <div class="member-responsibilities">
+                            Managing project requirements, UML design documentation, and implementing critical input sanitization modules to ensure data integrity and security.
+                        </div>
+                    </div>
+                    
+                    <div class="team-card animate-fadeInUp">
+                        <div class="member-avatar">HK</div>
+                        <div class="member-name">Hyun Gi Kim</div>
+                        <div class="member-role">ML/AI Specialist</div>
+                        <div class="member-responsibilities">
+                            Researching and optimizing LLM models for summarization tasks, backend development, and ensuring optimal model performance for various document types.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 BottleneckBreakers | Texas Tech University Computer Science Capstone Project</p>
+                <p>Leveraging cutting-edge AI to transform academic research workflows</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate-fadeInUp');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Add hover effects to team cards
+            const teamCards = document.querySelectorAll('.team-card');
+            teamCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add click animation to tech badges
+            const techBadges = document.querySelectorAll('.tech-badge');
+            techBadges.forEach(badge => {
+                badge.addEventListener('click', () => {
+                    badge.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        badge.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+
+            // Parallax effect for background
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallax = document.body;
+                const speed = scrolled * 0.5;
+                parallax.style.backgroundPosition = `center ${speed}px`;
+            });
+
+            // Dynamic typing effect for hero title
+            const heroTitle = document.querySelector('.hero-title');
+            const text = heroTitle.textContent;
+            heroTitle.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    heroTitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            };
+            
+            setTimeout(typeWriter, 500);
+
+            // Add ripple effect to cards
+            const cards = document.querySelectorAll('.team-card, .feature-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const ripple = document.createElement('div');
+                    const rect = card.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: rgba(0, 255, 136, 0.3);
+                        pointer-events: none;
+                        left: ${x}px;
+                        top: ${y}px;
+                        width: ${size}px;
+                        height: ${size}px;
+                        animation: ripple 0.6s ease-out;
+                        z-index: 1;
+                    `;
+                    
+                    card.style.position = 'relative';
+                    card.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Add CSS for ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    from {
+                        transform: scale(0);
+                        opacity: 0.4;
+                    }
+                    to {
+                        transform: scale(1);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konamiPattern = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up Up Down Down Left Right Left Right B A
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiPattern.length) {
+                konamiCode.shift();
+            }
+            
+            if (konamiCode.length === konamiPattern.length && 
+                konamiCode.every((key, i) => key === konamiPattern[i])) {
+                document.body.style.filter = 'hue-rotate(180deg)';
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
