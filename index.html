@@ -233,8 +233,8 @@
         }
         
         .member-avatar {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary-color), #ffffff);
             display: flex;
@@ -244,6 +244,20 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--secondary-color);
+            overflow: hidden;
+            border: 3px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-card:hover .member-avatar {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
         }
         
         .member-name {
@@ -647,8 +661,8 @@
                         
                         <div class="meeting-card upcoming animate-fadeInUp">
                             <div class="meeting-date">
-                                <div class="date-day">3</div>
-                                <div class="date-month">October</div>
+                                <div class="date-day">10</div>
+                                <div class="date-month">MAR</div>
                             </div>
                             <div class="meeting-details">
                                 <div class="meeting-time">5:00 PM</div>
@@ -658,8 +672,8 @@
                         
                         <div class="meeting-card upcoming animate-fadeInUp">
                             <div class="meeting-date">
-                                <div class="date-day">11</div>
-                                <div class="date-month">October</div>
+                                <div class="date-day">10</div>
+                                <div class="date-month">NOV</div>
                             </div>
                             <div class="meeting-details">
                                 <div class="meeting-time">5:00 PM</div>
@@ -676,7 +690,9 @@
                 
                 <div class="team-grid">
                     <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">ST</div>
+                        <div class="member-avatar">
+                            <img src="https://i.imgur.com/placeholder1.jpg" alt="Shahir Tahiri" onerror="this.parentElement.innerHTML='ST'">
+                        </div>
                         <div class="member-name">
                             Shahir Tahiri
                             <span class="leader-badge">LEADER</span>
@@ -688,7 +704,9 @@
                     </div>
                     
                     <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">KS</div>
+                        <div class="member-avatar">
+                            <img src="https://i.imgur.com/placeholder2.jpg" alt="Koda Scott" onerror="this.parentElement.innerHTML='KS'">
+                        </div>
                         <div class="member-name">Koda Scott</div>
                         <div class="member-role">Frontend Developer</div>
                         <div class="member-responsibilities">
@@ -706,7 +724,9 @@
                     </div>
                     
                     <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">KK</div>
+                        <div class="member-avatar">
+                            <img src="https://i.imgur.com/placeholder3.jpg" alt="Kyle Kirchgessner" onerror="this.parentElement.innerHTML='KK'">
+                        </div>
                         <div class="member-name">Kyle Kirchgessner</div>
                         <div class="member-role">Requirements Engineer</div>
                         <div class="member-responsibilities">
@@ -715,7 +735,9 @@
                     </div>
                     
                     <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">HK</div>
+                        <div class="member-avatar">
+                            <img src="https://i.imgur.com/placeholder4.jpg" alt="Hyun Gi Kim" onerror="this.parentElement.innerHTML='HK'">
+                        </div>
                         <div class="member-name">Hyun Gi Kim</div>
                         <div class="member-role">ML/AI Specialist</div>
                         <div class="member-responsibilities">
