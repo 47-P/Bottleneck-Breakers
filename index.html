@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BottleneckBreakers - Capstone Project</title>
+    <title>BottleneckBreakers - AI Research Platform</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
         
         * {
             margin: 0;
@@ -14,890 +14,743 @@
         }
         
         :root {
-            --primary-color: #00ff88;
-            --secondary-color: #1a1a1a;
-            --accent-color: #333;
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
-            --gradient-bg: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --border-color: rgba(0, 255, 136, 0.2);
+            --primary: #00ff88;
+            --dark: #0a0a0a;
+            --card: #141414;
+            --text: #ffffff;
+            --muted: #888888;
+            --border: rgba(0, 255, 136, 0.15);
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--gradient-bg);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark);
+            color: var(--text);
             overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1200px;
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .nav-content {
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            padding: 2rem 0;
-            position: relative;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .header-content {
+            padding: 1.5rem 3rem;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
+            align-items: center;
         }
         
-        .logo {
+        .brand {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
         
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            border-radius: 8px;
+        .brand-logo {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-            color: var(--secondary-color);
-            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--dark);
+            font-size: 1.1rem;
         }
         
-        .logo-text h1 {
-            font-size: 1.8rem;
+        .brand-name {
+            font-size: 1.4rem;
             font-weight: 700;
-            color: var(--primary-color);
+            letter-spacing: -0.5px;
         }
         
-        .logo-text p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
         }
         
-        .university-badge {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s;
         }
         
-        /* Main Content */
-        main {
-            padding: 4rem 0;
+        .nav-links a:hover {
+            color: var(--primary);
         }
         
-        .hero-section {
-            text-align: center;
-            margin-bottom: 4rem;
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
         }
         
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-color), #ffffff);
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 40%);
+        }
+        
+        .hero-grid-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(0, 255, 136, 0.02) 80px),
+                repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(0, 255, 136, 0.02) 80px);
+            animation: grid-move 20s linear infinite;
+        }
+        
+        @keyframes grid-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(80px); }
+        }
+        
+        .hero-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+        
+        .hero-text h1 {
+            font-size: 5.5rem;
+            font-weight: 800;
+            line-height: 0.95;
+            margin-bottom: 2rem;
+            letter-spacing: -3px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, #00cc6a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        .tech-stack {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+        .hero-text p {
+            font-size: 1.3rem;
+            color: var(--muted);
+            line-height: 1.7;
             margin-bottom: 3rem;
+            max-width: 600px;
         }
         
-        .tech-badge {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+        }
+        
+        .hero-card {
+            background: var(--card);
+            border: 1px solid var(--border);
             border-radius: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--primary-color);
-            transition: all 0.3s ease;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .tech-badge:hover {
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            transform: translateY(-2px);
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
         }
         
-        /* Project Section */
-        .project-section {
-            margin-bottom: 4rem;
+        .tech-list {
+            list-style: none;
+        }
+        
+        .tech-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .tech-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .tech-name {
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .tech-version {
+            color: var(--primary);
+            font-size: 0.85rem;
+        }
+        
+        /* Section */
+        section {
+            padding: 8rem 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .section-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
         
         .section-title {
-            font-size: 2.2rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: var(--primary-color);
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 4rem;
+            letter-spacing: -2px;
         }
         
-        .project-overview {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            margin-bottom: 2rem;
-        }
-        
-        .project-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        
+        /* Features */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .feature-card {
-            background: rgba(0, 255, 136, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-        }
-        
-        .feature-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .feature-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        
-        /* Team Section */
-        .team-section {
-            margin-bottom: 4rem;
-        }
-        
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
         }
         
-        .team-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.4s ease;
         }
         
-        .team-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-            box-shadow: 0 20px 40px rgba(0, 255, 136, 0.1);
+        .feature::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--primary), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
         
-        .member-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), #ffffff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
+        .feature:hover::before {
+            opacity: 1;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-number {
+            font-family: 'Fira Code', monospace;
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--secondary-color);
-            overflow: hidden;
-            border: 3px solid var(--border-color);
-            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
         
-        .member-avatar img {
+        .feature p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        
+        /* Timeline */
+        .timeline-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        
+        .timeline-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .timeline-event {
+            background: var(--card);
+            border-left: 3px solid var(--primary);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s;
+        }
+        
+        .timeline-event:hover {
+            transform: translateX(10px);
+            border-left-width: 6px;
+        }
+        
+        .timeline-event.upcoming {
+            border-left-color: var(--muted);
+            opacity: 0.7;
+        }
+        
+        .event-date {
+            font-family: 'Fira Code', monospace;
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .event-time {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tag {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+        }
+        
+        .member {
+            text-align: center;
+            position: relative;
+        }
+        
+        .member-photo {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            position: relative;
+            border: 2px solid var(--border);
+            transition: all 0.4s;
+        }
+        
+        .member-photo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .member:hover .member-photo::before {
+            opacity: 0.2;
+        }
+        
+        .member:hover .member-photo {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .member-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
         
-        .team-card:hover .member-avatar {
-            border-color: var(--primary-color);
-            transform: scale(1.05);
+        .member-initials {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), #00cc6a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--dark);
         }
         
         .member-name {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+            margin-bottom: 0.3rem;
         }
         
         .member-role {
-            color: var(--primary-color);
-            font-weight: 500;
-            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-family: 'Fira Code', monospace;
+            margin-bottom: 0.8rem;
         }
         
-        .member-responsibilities {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .member-desc {
+            color: var(--muted);
+            font-size: 0.85rem;
             line-height: 1.6;
         }
         
-        .leader-badge {
+        .leader-tag {
             display: inline-block;
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            padding: 0.2rem 0.8rem;
-            border-radius: 12px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
             font-size: 0.7rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
         }
         
         /* Footer */
         footer {
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 0;
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 3rem;
             text-align: center;
-            background: rgba(0, 0, 0, 0.3);
         }
         
         .footer-content {
-            color: var(--text-secondary);
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-text {
+            color: var(--muted);
             font-size: 0.9rem;
         }
         
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-tech {
+            color: var(--primary);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
         }
         
-        .animate-fadeInUp {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.2rem;
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
             
-            .header-content {
-                justify-content: center;
-                text-align: center;
+            .hero-text h1 {
+                font-size: 4rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1rem 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-wrapper {
+                grid-template-columns: 1fr;
             }
             
             .team-grid {
                 grid-template-columns: 1fr;
             }
             
-            .features-grid {
-                grid-template-columns: 1fr;
+            .section-title {
+                font-size: 2.5rem;
             }
-        }
-        
-        /* Code styling */
-        code {
-            font-family: 'JetBrains Mono', monospace;
-            background: rgba(0, 255, 136, 0.1);
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-size: 0.9em;
-        }
-        
-        /* Meetings Section */
-        .meetings-section {
-            margin-bottom: 4rem;
-        }
-        
-        .meetings-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-        
-        .meetings-column {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .meetings-subtitle {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            padding-left: 0.5rem;
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .meeting-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-        }
-        
-        .meeting-card:last-child {
-            margin-bottom: 0;
-        }
-        
-        .meeting-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.15);
-        }
-        
-        .meeting-card.completed {
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .meeting-card.upcoming {
-            border-left: 3px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .meeting-date {
-            background: linear-gradient(135deg, var(--primary-color), #00cc6a);
-            color: var(--secondary-color);
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            min-width: 80px;
-            height: fit-content;
-            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
-        }
-        
-        .meeting-card.upcoming .meeting-date {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            box-shadow: none;
-        }
-        
-        .date-day {
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .date-month {
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 0.3rem;
-            letter-spacing: 1px;
-        }
-        
-        .meeting-details {
-            flex: 1;
-        }
-        
-        .meeting-time {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .meeting-time::before {
-            content: '⏰';
-            font-size: 1.1rem;
-        }
-        
-        .meeting-topics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-        
-        .topic-tag {
-            background: rgba(0, 255, 136, 0.1);
-            color: var(--primary-color);
-            padding: 0.4rem 0.9rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-        
-        .topic-tag:hover {
-            background: var(--primary-color);
-            color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-        
-        .meeting-status {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            padding: 0.3rem 0;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .meeting-status::before {
-            content: '📅';
-        }
-        
-        @media (max-width: 1024px) {
-            .meetings-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .meeting-card {
-                flex-direction: row;
-                padding: 1.2rem;
-            }
-            
-            .meeting-date {
-                min-width: 70px;
-                padding: 0.8rem;
-            }
-            
-            .date-day {
-                font-size: 1.8rem;
-            }
-            
-            .meetings-subtitle {
-                font-size: 1.2rem;
-            }
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--secondary-color);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00cc6a;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">BB</div>
-                    <div class="logo-text">
-                        <h1>BottleneckBreakers</h1>
-                        <p>CS Capstone Project 2025</p>
-                    </div>
-                </div>
-                <div class="university-badge">Texas Tech University</div>
+    <nav>
+        <div class="nav-content">
+            <div class="brand">
+                <div class="brand-logo">BB</div>
+                <div class="brand-name">BottleneckBreakers</div>
+            </div>
+            <div class="nav-links">
+                <a href="#features">FEATURES</a>
+                <a href="#timeline">TIMELINE</a>
+                <a href="#team">TEAM</a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <div class="container">
-            <!-- Hero Section -->
-            <section class="hero-section">
-                <h2 class="hero-title animate-fadeInUp">LLM-Powered Paper Summarization</h2>
-                <p class="hero-subtitle animate-fadeInUp">Revolutionizing academic research with intelligent document processing and automated summarization using Large Language Models</p>
-                
-                <div class="tech-stack animate-fadeInUp">
-                    <span class="tech-badge">Python 3.11+</span>
-                    <span class="tech-badge">LLM APIs</span>
-                    <span class="tech-badge">FastAPI</span>
-                    <span class="tech-badge">Docker</span>
-                    <span class="tech-badge">OCR</span>
-                    <span class="tech-badge">NLP</span>
-                </div>
-            </section>
-
-            <!-- Project Section -->
-            <section class="project-section">
-                <h3 class="section-title">Project Overview</h3>
-                
-                <div class="project-overview animate-fadeInUp">
-                    <p class="project-description">
-                        Our project tackles the time-consuming challenge of summarizing large collections of academic papers. By leveraging Large Language Models (LLMs), we've developed a sophisticated two-stage process that first generates individual summaries for each paper, then aggregates them into a cohesive, comprehensive document.
-                    </p>
-                    
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-title">🔍 Intelligent Parsing</div>
-                            <div class="feature-description">Advanced text extraction with support for multiple formats including PDF, DOCX, HTML, and more with OCR capabilities</div>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-title">⚡ Parallel Processing</div>
-                            <div class="feature-description">Multi-threaded chunk processing with linear scaling up to 4 workers for optimal performance</div>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-title">🛡️ Secure & Private</div>
-                            <div class="feature-description">Offline mode available with no data transmission, plus PII sanitization for online processing</div>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-title">🎯 Flexible Output</div>
-                            <div class="feature-description">Configurable summary lengths (short, medium, detailed) with multiple export formats</div>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-title">🖥️ Multi-Interface</div>
-                            <div class="feature-description">GUI, CLI, and web application interfaces for different user preferences and workflows</div>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-title">🔧 Cross-Platform</div>
-                            <div class="feature-description">Windows, macOS, and Linux support with Docker containerization for easy deployment</div>
-                        </div>
+    <div class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    Breaking<br>
+                    Research<br>
+                    <span class="gradient-text">Bottlenecks</span>
+                </h1>
+                <p>AI-powered academic paper summarization platform. Processing thousands of pages into actionable insights using state-of-the-art Large Language Models.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">100K+</div>
+                        <div class="stat-label">Words Processed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">50</div>
+                        <div class="stat-label">Max Documents</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4x</div>
+                        <div class="stat-label">Parallel Workers</div>
                     </div>
                 </div>
-            </section>
-
-            <!-- Meetings Section -->
-            <section class="meetings-section">
-                <h3 class="section-title">Project Timeline</h3>
-                
-                <div class="meetings-container">
-                    <!-- Previous Meetings -->
-                    <div class="meetings-column">
-                        <h4 class="meetings-subtitle">Previous Meetings</h4>
-                        
-                        <div class="meeting-card completed animate-fadeInUp">
-                            <div class="meeting-date">
-                                <div class="date-day">25</div>
-                                <div class="date-month">SEP</div>
-                            </div>
-                            <div class="meeting-details">
-                                <div class="meeting-time">5:00 PM</div>
-                                <div class="meeting-topics">
-                                    <div class="topic-tag">Project Requirements</div>
-                                    <div class="topic-tag">Role Assignments</div>
-                                    <div class="topic-tag">Feasibility Study</div>
-                                    <div class="topic-tag">Project Overview</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="meeting-card completed animate-fadeInUp">
-                            <div class="meeting-date">
-                                <div class="date-day">29</div>
-                                <div class="date-month">SEP</div>
-                            </div>
-                            <div class="meeting-details">
-                                <div class="meeting-time">5:00 PM</div>
-                                <div class="meeting-topics">
-                                    <div class="topic-tag">SRS Document</div>
-                                    <div class="topic-tag">Stage 1 Presentation</div>
-                                    <div class="topic-tag">Requirements Completion</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Upcoming Meetings -->
-                    <div class="meetings-column">
-                        <h4 class="meetings-subtitle">Upcoming Meetings</h4>
-                        
-                        <div class="meeting-card upcoming animate-fadeInUp">
-                            <div class="meeting-date">
-                                <div class="date-day">10</div>
-                                <div class="date-month">October</div>
-                            </div>
-                            <div class="meeting-details">
-                                <div class="meeting-time">5:00 PM</div>
-                                <div class="meeting-status">Scheduled</div>
-                            </div>
-                        </div>
-                        
-                        <div class="meeting-card upcoming animate-fadeInUp">
-                            <div class="meeting-date">
-                                <div class="date-day">15</div>
-                                <div class="date-month">Oct</div>
-                            </div>
-                            <div class="meeting-details">
-                                <div class="meeting-time">5:00 PM</div>
-                                <div class="meeting-status">Scheduled</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Team Section -->
-            <section class="team-section">
-                <h3 class="section-title">Meet the Team</h3>
-                
-                <div class="team-grid">
-                    <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">
-                            <img src="Shahir1.jpg">
-                        </div>
-                        <div class="member-name">
-                            Shahir Tahiri
-                            <span class="leader-badge">LEADER</span>
-                        </div>
-                        <div class="member-role">Backend Architecture</div>
-                        <div class="member-responsibilities">
-                            Leading the project while architecting the backend infrastructure and setting up local LLM integration. Responsible for core system design and ensuring seamless model deployment.
-                        </div>
-                    </div>
-                    
-                    <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">
-                            <img src="Koda1.jpg">
-                        </div>
-                        <div class="member-name">Koda Scott</div>
-                        <div class="member-role">Frontend Developer</div>
-                        <div class="member-responsibilities">
-                            Designing and implementing the graphical user interface to provide an intuitive and user-friendly experience for document upload, processing, and result visualization.
-                        </div>
-                    </div>
-                    
-                    <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">AK</div>
-                        <div class="member-name">Aryan Sachin Kulkarni</div>
-                        <div class="member-role">Data Processing Engineer</div>
-                        <div class="member-responsibilities">
-                            Developing robust document parsing systems to convert various file formats into structured JSON data while preserving semantic meaning and document hierarchy.
-                        </div>
-                    </div>
-                    
-                    <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">
-                            <img src="Kyle.png">
-                        </div>
-                        <div class="member-name">Kyle Kirchgessner</div>
-                        <div class="member-role">Requirements Engineer</div>
-                        <div class="member-responsibilities">
-                            Managing project requirements, UML design documentation, and implementing critical input sanitization modules to ensure data integrity and security.
-                        </div>
-                    </div>
-                    
-                    <div class="team-card animate-fadeInUp">
-                        <div class="member-avatar">
-                            <img src="Hyun.jpg">
-                        </div>
-                        <div class="member-name">Hyun Gi Kim</div>
-                        <div class="member-role">ML/AI Specialist</div>
-                        <div class="member-responsibilities">
-                            Researching and optimizing LLM models for summarization tasks, backend development, and ensuring optimal model performance for various document types.
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
+            <div class="hero-card">
+                <ul class="tech-list">
+                    <li>
+                        <span class="tech-name">Python</span>
+                        <span class="tech-version">3.11+</span>
+                    </li>
+                    <li>
+                        <span class="tech-name">LLM APIs</span>
+                        <span class="tech-version">GPT / LLaMA</span>
+                    </li>
+                    <li>
+                        <span class="tech-name">FastAPI</span>
+                        <span class="tech-version">Web Framework</span>
+                    </li>
+                    <li>
+                        <span class="tech-name">Docker</span>
+                        <span class="tech-version">Container</span>
+                    </li>
+                    <li>
+                        <span class="tech-name">OCR Engine</span>
+                        <span class="tech-version">Text Extract</span>
+                    </li>
+                    <li>
+                        <span class="tech-name">NLP Pipeline</span>
+                        <span class="tech-version">Processing</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </main>
+    </div>
+
+    <section id="features">
+        <div class="section-label">// CAPABILITIES</div>
+        <h2 class="section-title">Built for Scale & Precision</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-number">01.</div>
+                <h3>Multi-Format Parsing</h3>
+                <p>Seamlessly process PDF, DOCX, HTML, EPUB, and more. OCR-enabled for scanned documents with intelligent text extraction and structure preservation.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">02.</div>
+                <h3>Parallel Processing Engine</h3>
+                <p>Multi-threaded architecture with linear scaling up to 4 workers. Process 25+ documents per hour with optimized chunk management.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">03.</div>
+                <h3>Enterprise Security</h3>
+                <p>Offline mode with zero data transmission. PII sanitization, encrypted API calls (TLS 1.2+), and automatic temp file cleanup.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">04.</div>
+                <h3>Flexible Deployment</h3>
+                <p>GUI, CLI, and web interfaces. Cross-platform support (Windows, macOS, Linux) with Docker containerization for instant deployment.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">05.</div>
+                <h3>Smart Aggregation</h3>
+                <p>Two-stage summarization pipeline. Individual chunk summaries are intelligently merged into cohesive documents with semantic continuity.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-number">06.</div>
+                <h3>Configurable Output</h3>
+                <p>Choose summary length (short, medium, detailed). Export to TXT, DOCX, or PDF with customizable formatting and structure.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline">
+        <div class="section-label">// PROGRESS</div>
+        <h2 class="section-title">Development Timeline</h2>
+        <div class="timeline-wrapper">
+            <div class="timeline-column">
+                <h3>&gt; Completed</h3>
+                <div class="timeline-event">
+                    <div class="event-date">SEP 25, 2024</div>
+                    <div class="event-time">17:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">requirements</span>
+                        <span class="tag">roles</span>
+                        <span class="tag">feasibility</span>
+                        <span class="tag">overview</span>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="event-date">SEP 29, 2024</div>
+                    <div class="event-time">17:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">SRS</span>
+                        <span class="tag">presentation</span>
+                        <span class="tag">stage-1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-column">
+                <h3>&gt; Upcoming</h3>
+                <div class="timeline-event upcoming">
+                    <div class="event-date">MAR 10, 2025</div>
+                    <div class="event-time">17:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">TBD</span>
+                    </div>
+                </div>
+                <div class="timeline-event upcoming">
+                    <div class="event-date">NOV 10, 2025</div>
+                    <div class="event-time">17:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">TBD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="section-label">// TEAM</div>
+        <h2 class="section-title">The Builders</h2>
+        <div class="team-grid">
+            <div class="member">
+                <div class="member-photo">
+                    <img src="Shahir1.jpg" alt="Shahir Tahiri">
+                </div>
+                <div class="member-name">Shahir Tahiri</div>
+                <div class="member-role">backend / llm-setup</div>
+                <div class="member-desc">Backend architecture & local LLM integration</div>
+                <div class="leader-tag">LEADER</div>
+            </div>
+            <div class="member">
+                <div class="member-photo">
+                    <img src="Koda1.jpg" alt="Koda Scott">
+                </div>
+                <div class="member-name">Koda Scott</div>
+                <div class="member-role">frontend / ui-ux</div>
+                <div class="member-desc">GUI design & user experience</div>
+            </div>
+            <div class="member">
+                <div class="member-photo">
+                    <div class="member-initials">AK</div>
+                </div>
+                <div class="member-name">Aryan Kulkarni</div>
+                <div class="member-role">parsing / json</div>
+                <div class="member-desc">Document parsing & data structuring</div>
+            </div>
+            <div class="member">
+                <div class="member-photo">
+                    <img src="Kyle.png" alt="Kyle Kirchgessner">
+                </div>
+                <div class="member-name">Kyle Kirchgessner</div>
+                <div class="member-role">requirements / uml</div>
+                <div class="member-desc">SRS & input sanitization</div>
+            </div>
+            <div class="member">
+                <div class="member-photo">
+                    <img src="Hyun.jpg" alt="Hyun Gi Kim">
+                </div>
+                <div class="member-name">Hyun Gi Kim</div>
+                <div class="member-role">ml / optimization</div>
+                <div class="member-desc">LLM research & model tuning</div>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 BottleneckBreakers | Texas Tech University Computer Science Capstone Project</p>
-                <p>Leveraging cutting-edge AI to transform academic research workflows</p>
-            </div>
+        <div class="footer-content">
+            <div class="footer-logo">BottleneckBreakers</div>
+            <div class="footer-text">Texas Tech University | Computer Science Capstone 2025</div>
+            <div class="footer-tech">// Powered by AI & Innovation</div>
         </div>
     </footer>
-
-    <script>
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all animated elements
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.animate-fadeInUp');
-            animatedElements.forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(el);
-            });
-
-            // Add hover effects to team cards
-            const teamCards = document.querySelectorAll('.team-card');
-            teamCards.forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-
-            // Add click animation to tech badges
-            const techBadges = document.querySelectorAll('.tech-badge');
-            techBadges.forEach(badge => {
-                badge.addEventListener('click', () => {
-                    badge.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        badge.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
-
-            // Parallax effect for background
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const parallax = document.body;
-                const speed = scrolled * 0.5;
-                parallax.style.backgroundPosition = `center ${speed}px`;
-            });
-
-            // Dynamic typing effect for hero title
-            const heroTitle = document.querySelector('.hero-title');
-            const text = heroTitle.textContent;
-            heroTitle.textContent = '';
-            
-            let i = 0;
-            const typeWriter = () => {
-                if (i < text.length) {
-                    heroTitle.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 50);
-                }
-            };
-            
-            setTimeout(typeWriter, 500);
-
-            // Add ripple effect to cards
-            const cards = document.querySelectorAll('.team-card, .feature-card');
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    const ripple = document.createElement('div');
-                    const rect = card.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.cssText = `
-                        position: absolute;
-                        border-radius: 50%;
-                        background: rgba(0, 255, 136, 0.3);
-                        pointer-events: none;
-                        left: ${x}px;
-                        top: ${y}px;
-                        width: ${size}px;
-                        height: ${size}px;
-                        animation: ripple 0.6s ease-out;
-                        z-index: 1;
-                    `;
-                    
-                    card.style.position = 'relative';
-                    card.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
-                });
-            });
-
-            // Add CSS for ripple animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes ripple {
-                    from {
-                        transform: scale(0);
-                        opacity: 0.4;
-                    }
-                    to {
-                        transform: scale(1);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-        });
-
-        // Easter egg: Konami code
-        let konamiCode = [];
-        const konamiPattern = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up Up Down Down Left Right Left Right B A
-        
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.keyCode);
-            if (konamiCode.length > konamiPattern.length) {
-                konamiCode.shift();
-            }
-            
-            if (konamiCode.length === konamiPattern.length && 
-                konamiCode.every((key, i) => key === konamiPattern[i])) {
-                document.body.style.filter = 'hue-rotate(180deg)';
-                setTimeout(() => {
-                    document.body.style.filter = 'none';
-                }, 3000);
-            }
-        });
-    </script>
 </body>
 </html>
