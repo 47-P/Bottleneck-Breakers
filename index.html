@@ -757,6 +757,120 @@
 </head>
 <body>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Development Timeline</title>
+<style>
+    /* Basic Reset and Font */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a2e;
+        color: #eaeaea;
+        padding: 40px;
+    }
+
+    #timeline {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .section-label {
+        color: #3bb19b;
+        font-size: 0.9rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        margin-top: 0;
+        margin-bottom: 40px;
+        color: #fff;
+    }
+
+    .timeline-wrapper {
+        border-left: 2px solid #0f4c75;
+        padding-left: 40px;
+        position: relative;
+    }
+
+    .timeline-column h3 {
+        color: #718096;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+    }
+
+    .timeline-event {
+        background-color: #16213e;
+        border: 1px solid #0f4c75;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+
+    .timeline-event:hover {
+        transform: translateX(5px);
+        border-color: #3bb19b;
+    }
+
+    /* Dot on the timeline line */
+    .timeline-event::before {
+        content: '';
+        position: absolute;
+        left: -49px; /* Adjust based on wrapper padding + border */
+        top: 25px;
+        width: 16px;
+        height: 16px;
+        background-color: #1a1a2e;
+        border: 2px solid #3bb19b;
+        border-radius: 50%;
+    }
+
+    .upcoming {
+        border-style: dashed;
+        opacity: 0.8;
+    }
+    
+    .upcoming::before {
+        background-color: #3bb19b; /* Filled dot for upcoming/active */
+    }
+
+    .event-date {
+        font-weight: bold;
+        color: #fff;
+        font-size: 1.1rem;
+    }
+
+    .event-time {
+        color: #3bb19b;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    .event-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .tag {
+        background-color: #0f4c75;
+        color: #eaeaea;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-family: monospace;
+    }
+</style>
+</head>
+<body>
+
     <section id="timeline">
         <div class="section-label">// PROGRESS</div>
         <h2 class="section-title">Development Timeline</h2>
@@ -811,17 +925,52 @@
                     </div>
                 </div>
 
-                <div class="timeline-event upcoming">
+                <div class="timeline-event">
                     <div class="event-date">Nov 11, 2025</div>
                     <div class="event-time">17:00 CST</div>
                     <div class="event-tags">
                         <span class="tag">Building Backend</span>
                     </div>
                 </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">Nov 13th, 2025</div>
+                    <div class="event-time">17:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">Building GUI</span>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">Nov 15th, 2025</div>
+                    <div class="event-time">18:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">Refactoring Code Base</span>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">Nov 18th, 2025</div>
+                    <div class="event-time">17:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">Testing</span>
+                    </div>
+                </div>
+
+                <div class="timeline-event">
+                    <div class="event-date">Nov 19th, 2025</div>
+                    <div class="event-time">17:00 CST</div>
+                    <div class="event-tags">
+                        <span class="tag">Submission</span>
+                    </div>
+                </div>
             
             </div> <!-- Closes timeline-column -->
-        </div> <!-- Closes timeline-wrapper (THIS WAS MISSING) -->
+        </div> <!-- Closes timeline-wrapper -->
     </section>
+
+</body>
+</html>
 
 </body>
 </html>
